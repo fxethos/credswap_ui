@@ -1,0 +1,32 @@
+$blue:    #565859 !default;
+
+
+$theme-colors: (
+  "primary": #1A1D1F,
+  "secondary":black, 
+  "body-bg": blue,
+);
+
+
+
+
+
+// $body: yellow;
+// $bs-body-bg: blue !important;
+.btn{
+  padding: 0.1rem 0.75rem !important;
+  color:#776C34 !important;
+  border-radius:10px !important;
+}
+
+// .btn-primary {
+//   color: #776C34 !important;
+// }
+
+
+body{
+  background-color:black !important;
+}
+
+
+@import "~bootstrap/scss/bootstrap";
