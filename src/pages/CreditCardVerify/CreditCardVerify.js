@@ -9,7 +9,7 @@ function CreditCardVerify(props) {
         if (phone.length === 10) {
             authUser(phone).then(res => {
                 console.log(res ? "login successful!" : "login failed!");
-                res && props.history.push('/welcome');
+                // res && props.history.push('/welcome');
             });
         } else {
             console.error("Please enter a valid mobile number");
@@ -17,7 +17,7 @@ function CreditCardVerify(props) {
     }
     const onChange = (e) => {
         const phoneInput = e.target.value;
-        if (!phoneInput || phoneInput.match(/^\d{0,10}$/)) {
+        if (phoneInput.match(/^\d{0,10}$/)) {
             setPhone(phoneInput);
         } else {
             console.log("enter number");
