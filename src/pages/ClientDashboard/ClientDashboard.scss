@@ -1,0 +1,105 @@
+.card_bg_outer {
+  overflow-x: hidden;
+}
+// .card_number {
+//   color: #565859;
+// }
+.profile_detail_content {
+  background-color: #242728;
+  padding: 2rem;
+  height: 100vh;
+  color: #565859;
+  h4 {
+    color: white;
+  }
+  .form-check-label {
+    color: #565859;
+  }
+  .form-check-input {
+    background: transparent;
+    color: white;
+    border: 1px solid#565859;
+  }
+  input {
+    background-color: transparent;
+    border: none;
+    color: #565859;
+  }
+}
+.cards_bg {
+  background-color: #000000;
+  background-image: url("../../assets/images/cards-bg.svg");
+  background-position: bottom left;
+  background-size: cover;
+  color: #ffffff;
+  text-align: center;
+  height: 100vh;
+}
+.nav-tabs .nav-link {
+  border: none !important;
+  font-weight: 500;
+}
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+  background-color: transparent !important;
+  border-bottom: 2px solid #da9829 !important;
+  color: #da9829 !important;
+}
+.nav-tabs .nav-link:hover,
+.nav-tabs .nav-link:focus {
+  border-bottom: 2px solid #da9829 !important;
+}
+/* 
+    ##Device = Tablets, Ipads (portrait)
+    ##Screen = B/w 768px to 1024px
+  */
+
+@media (min-width: 769px) and (max-width: 900px) {
+  .profile_detail_content {
+    padding: 1rem;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
+      url("../../assets/images/cards-bg.svg");
+    background-color: none;
+  }
+  .cards_bg {
+    display: none;
+  }
+}
+
+/* 
+    ##Device = Low Resolution Tablets, Mobiles (Landscape)
+    ##Screen = B/w 481px to 767px
+  */
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .profile_detail_content {
+    padding: 1rem;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
+      url("../../assets/images/cards-bg.svg");
+    background-color: none;
+  }
+  .cards_bg {
+    display: none;
+  }
+}
+
+/* 
+    ##Device = Most of the Smartphones Mobiles (Portrait)
+    ##Screen = B/w 320px to 479px
+  */
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .profile_detail_content {
+    padding: 1rem;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
+      url("../../assets/images/cards-bg.svg");
+    background-color: none;
+    font-size: 0.8rem;
+  }
+  .cards_bg {
+    display: none;
+  }
+  .nav-link {
+    font-size: 0.8rem;
+  }
+}
