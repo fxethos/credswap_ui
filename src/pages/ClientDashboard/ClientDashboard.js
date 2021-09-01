@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./ClientDashboard.scss";
 import logo from "../../assets/images/logo.png";
 import { getUser } from "../../Helpers/APIHelper";
-import WalletClient, { connectWallet, getConnection } from "../../Helpers/WalletHelper";
+import WalletClient from "../../Helpers/WalletHelper";
 import ClientProfile from "../ClientProfile/ClientProfile";
 import ConvertForm from "../../components/ConvertForm/ConvertForm";
 import Balances from "../../components/Balances/Balances";
@@ -13,6 +13,7 @@ function ClientDashboard(props) {
   const [user, setUser] = useState(storedUser ? JSON.parse(storedUser) : {})
   const [credBalance, setCredBalance] = useState(0);
   const [cretBalance, setCretBalance] = useState(0);
+  const [wallet, setWallet] = useState("")
 
   console.log("user before:", user);
 
@@ -25,13 +26,15 @@ function ClientDashboard(props) {
       });
     }
     setCredBalance(user.coins);
+    WalletClient.getBalance().then(balance => {
+      setCretBalance(balance.value.amount);
+    }).catch(err => {
+      console.log(err);
+    });
+    WalletClient.getPublicKey().then(pubKey => {
+      setWallet(pubKey.toBase58());
+    })
   }, [user]);
-
-  WalletClient.getBalance().then(balance => {
-    setCretBalance(balance.value.amount);
-  }).catch(err => {
-    console.log(err);
-  });
 
   return (
     <div>
@@ -85,6 +88,7 @@ function ClientDashboard(props) {
                       <br />
                       <h3>Convert</h3>
                       <p>your CRED reward points into CRET tokens</p>
+                      <p>Your wallet address: {wallet}</p>
                       <ConvertForm />
                       <Balances credBalance={credBalance} cretBalance={cretBalance} />
                     </div>
