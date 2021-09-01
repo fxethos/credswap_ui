@@ -26,7 +26,6 @@ export const authUser = async (phoneNumber) => {
     const access_token = (await axios.post(host.href, data, { headers })).data
       .access_token;
     headers["credaccess-access-token"] = access_token;
-    console.log(headers);
     return true;
   } catch (err) {
     console.log(err);
@@ -34,18 +33,10 @@ export const authUser = async (phoneNumber) => {
   }
 };
 
-export const createUser = async (first_name, last_name, email) => {
+export const createUser = async (userInfo) => {
   host.pathname = endpoints.createUser;
-  let data = { first_name, last_name, email };
-  console.log(data);
   try {
-    const token = (await axios.post(host.href, data, { headers })).data.token;
-    host.pathname = endpoints.createUser;
-    data = { token: token, otp: "1234" };
-    const access_token = (await axios.post(host.href, data, { headers })).data
-      .access_token;
-    headers["credaccess-access-token"] = access_token;
-    console.log(headers);
+    const data = (await axios.post(host.href, userInfo, { headers })).data;
     return true;
   } catch (err) {
     console.log(err);
@@ -54,12 +45,11 @@ export const createUser = async (first_name, last_name, email) => {
 };
 
 export const getUser = async () => {
+  console.log("Getting user...");
   host.pathname = endpoints.getUser;
   try {
-    const token = await axios.get(host.href, { headers });
-    console.log(token);
-    console.log(headers);
-    return true;
+    const data = (await axios.get(host.href, { headers })).data;
+    return data;
   } catch (err) {
     console.log(err);
     return false;
