@@ -45,7 +45,6 @@ export const createUser = async (userInfo) => {
 };
 
 export const getUser = async () => {
-  console.log("Getting user...");
   host.pathname = endpoints.getUser;
   try {
     const data = (await axios.get(host.href, { headers })).data;
@@ -55,3 +54,14 @@ export const getUser = async () => {
     return false;
   }
 };
+
+export const spend = async(payload) => {
+  host.pathname = endpoints.burn;
+  try {
+    const data = (await axios.post(host.href, payload, { headers })).data;
+    console.log("spend() =>", data);
+    return data;
+  } catch(err) {
+    console.log(err);
+  }
+}

@@ -3,7 +3,7 @@ import "./ClientProfile.scss";
 import ProfileForm from "../../components/ProfileForm/ProfileForm";
 import ShowProfile from "../../components/ShowProfile/ShowProfile";
 
-function ClientProfile() {
+function ClientProfile(props) {
   const [editstate, editsetState] = React.useState(false);
 
   const handleEditClick = () => {

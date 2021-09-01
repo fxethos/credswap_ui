@@ -1,19 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ClientDashboard.scss";
 import logo from "../../assets/images/logo.png";
 import { getUser } from "../../Helpers/APIHelper";
-import { connectWallet, getConnection } from "../../Helpers/WalletHelper";
+import WalletClient, { connectWallet, getConnection } from "../../Helpers/WalletHelper";
 import ClientProfile from "../ClientProfile/ClientProfile";
+import ConvertForm from "../../components/ConvertForm/ConvertForm";
+import Balances from "../../components/Balances/Balances";
 
 function ClientDashboard(props) {
-  const [connected, setConnected] = useState(false);
-  const handleWalletConnect = () => {
-    connectWallet().then(status => {
-      setConnected(status);
-    }).catch(err => {
-      console.log(err);
-    });
-  }
+
+  const storedUser = localStorage.getItem("user");
+  const [user, setUser] = useState(storedUser ? JSON.parse(storedUser) : {})
+  const [credBalance, setCredBalance] = useState(0);
+  const [cretBalance, setCretBalance] = useState(0);
+
+  console.log("user before:", user);
+
+  useEffect(() => {
+    if (Object.entries(user).length === 0) {
+      getUser().then(user => {
+        console.log("user after:", user);
+        setUser(user);
+        localStorage.setItem("user", JSON.stringify(user));
+      });
+    }
+    setCredBalance(user.coins);
+  }, [user]);
+
+  WalletClient.getBalance().then(balance => {
+    setCretBalance(balance.value.amount);
+  }).catch(err => {
+    console.log(err);
+  });
 
   return (
     <div>
@@ -67,13 +85,8 @@ function ClientDashboard(props) {
                       <br />
                       <h3>Convert</h3>
                       <p>your CRED reward points into CRET tokens</p>
-                      <button 
-                        className="btn btn-primary" 
-                        onClick={handleWalletConnect}
-                        disabled={connected}
-                      >
-                        {connected ? "Wallet Connected" : "Connect Wallet"}
-                      </button>
+                      <ConvertForm />
+                      <Balances credBalance={credBalance} cretBalance={cretBalance} />
                     </div>
                     <div id="exchange" className="container1 tab-pane fade">
                       <br />

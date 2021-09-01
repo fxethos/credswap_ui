@@ -1,0 +1,29 @@
+.balances-container {
+    display: flex;
+    margin: 1.5rem 0 0;
+    padding: 1rem;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #353535;
+}
+
+.balances-wrapper {
+    display: flex;
+    margin: 1rem 0;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.balance-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.balance-header {
+    font-size: 1.2rem;
+}
+
+.balance {
+    font-size: 2.5rem;
+}
