@@ -5,6 +5,7 @@ import { authUser } from "../../Helpers/APIHelper";
 
 function CreditCardVerify(props) {
   const [phone, setPhone] = useState("");
+  console.log("App started!");
   const onSubmit = () => {
     if (phone.length === 10) {
       authUser(phone).then((res) => {
