@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ClientDashboard.scss";
 import logo from "../../assets/images/logo.png";
 import { getUser } from "../../Helpers/APIHelper";
+import { connectWallet, getConnection } from "../../Helpers/WalletHelper";
 import ClientProfile from "../ClientProfile/ClientProfile";
 
 function ClientDashboard(props) {
-  getUser().then((res) => {
-    // console.log(res);
-  });
+  const [connected, setConnected] = useState(false);
+  const handleWalletConnect = () => {
+    connectWallet().then(status => {
+      setConnected(status);
+    }).catch(err => {
+      console.log(err);
+    });
+  }
 
   return (
     <div>
@@ -59,8 +65,15 @@ function ClientDashboard(props) {
                     </div>
                     <div id="covert" className="container1 tab-pane fade">
                       <br />
-                      <h3>Covert</h3>
-                      <p>2</p>
+                      <h3>Convert</h3>
+                      <p>your CRED reward points into CRET tokens</p>
+                      <button 
+                        className="btn btn-primary" 
+                        onClick={handleWalletConnect}
+                        disabled={connected}
+                      >
+                        {connected ? "Wallet Connected" : "Connect Wallet"}
+                      </button>
                     </div>
                     <div id="exchange" className="container1 tab-pane fade">
                       <br />
