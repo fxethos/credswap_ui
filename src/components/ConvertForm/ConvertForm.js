@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { spend } from '../../Helpers/APIHelper';
 
 class ConvertForm extends React.Component {
     state = {
@@ -11,7 +12,7 @@ class ConvertForm extends React.Component {
     }
     onSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state);
+        this.props.onConvertRequest(parseInt(this.state.coins));
     }
     render() {
         return (

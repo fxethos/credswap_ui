@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./ClientDashboard.scss";
 import logo from "../../assets/images/logo.png";
-import { getUser } from "../../Helpers/APIHelper";
+import { getUser, spend } from "../../Helpers/APIHelper";
 import WalletClient from "../../Helpers/WalletHelper";
 import ClientProfile from "../ClientProfile/ClientProfile";
 import ConvertForm from "../../components/ConvertForm/ConvertForm";
@@ -13,28 +13,52 @@ function ClientDashboard(props) {
   const [user, setUser] = useState(storedUser ? JSON.parse(storedUser) : {})
   const [credBalance, setCredBalance] = useState(0);
   const [cretBalance, setCretBalance] = useState(0);
-  const [wallet, setWallet] = useState("")
-
-  console.log("user before:", user);
+  const [wallet, setWallet] = useState("");
 
   useEffect(() => {
     if (Object.entries(user).length === 0) {
-      getUser().then(user => {
-        console.log("user after:", user);
-        setUser(user);
-        localStorage.setItem("user", JSON.stringify(user));
-      });
+      // getUser().then(user => {
+      //   setUser(user);
+      //   localStorage.setItem("user", JSON.stringify(user));
+      // });
+      updateUser();
     }
     setCredBalance(user.coins);
+    updateBalance();
+    console.log("Wallet connected", WalletClient.walletConnected);
+    if(WalletClient.walletConnected === true) {
+      WalletClient.getPublicKey().then(pubKey => {
+        if(pubKey) {
+          setWallet(pubKey.toBase58());
+        }
+      });
+      WalletClient.subscribe(updateBalance).then(res => {
+        console.log("Subscription done!", res);
+      });
+    }
+  }, [user, WalletClient.walletConnected]);
+
+  const updateBalance = () => {
     WalletClient.getBalance().then(balance => {
       setCretBalance(balance.value.amount);
     }).catch(err => {
       console.log(err);
     });
-    WalletClient.getPublicKey().then(pubKey => {
-      setWallet(pubKey.toBase58());
-    })
-  }, [user]);
+  }
+
+  const updateUser = () => {
+    getUser().then(user => {
+      setUser(user);
+      localStorage.setItem("user", JSON.stringify(user));
+    });
+  }
+
+  const handleConvertRequest = (coins) => {
+    spend(coins).then(data => {
+      console.log("Burn response:", data);
+      updateUser();
+    });
+  }
 
   return (
     <div>
@@ -89,7 +113,7 @@ function ClientDashboard(props) {
                       <h3>Convert</h3>
                       <p>your CRED reward points into CRET tokens</p>
                       <p>Your wallet address: {wallet}</p>
-                      <ConvertForm />
+                      <ConvertForm onConvertRequest={handleConvertRequest} />
                       <Balances credBalance={credBalance} cretBalance={cretBalance} />
                     </div>
                     <div id="exchange" className="container1 tab-pane fade">

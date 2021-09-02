@@ -6,7 +6,7 @@ const endpoints = {
   verifyOTP: "auth/verifyOtp", // POST - token (string), otp (string)
   createUser: "profile", //POST - first_name, last_name, email
   getUser: "profile", //GET
-  burn: "burn", // POST - coins (int)
+  burn: "profile/coins/burn", // POST - coins (int)
 };
 const headers = {
   "content-type": "application/json",
@@ -55,10 +55,10 @@ export const getUser = async () => {
   }
 };
 
-export const spend = async(payload) => {
+export const spend = async(coins) => {
   host.pathname = endpoints.burn;
   try {
-    const data = (await axios.post(host.href, payload, { headers })).data;
+    const data = (await axios.post(host.href, {coins}, { headers })).data;
     console.log("spend() =>", data);
     return data;
   } catch(err) {
