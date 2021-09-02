@@ -17,10 +17,6 @@ function ClientDashboard(props) {
 
   useEffect(() => {
     if (Object.entries(user).length === 0) {
-      // getUser().then(user => {
-      //   setUser(user);
-      //   localStorage.setItem("user", JSON.stringify(user));
-      // });
       updateUser();
     }
     setCredBalance(user.coins);
@@ -58,6 +54,10 @@ function ClientDashboard(props) {
       console.log("Burn response:", data);
       updateUser();
     });
+  }
+
+  const onSend = () => {
+    WalletClient.send(100, 0);
   }
 
   return (
@@ -119,7 +119,7 @@ function ClientDashboard(props) {
                     <div id="exchange" className="container1 tab-pane fade">
                       <br />
                       <h3>Exchange</h3>
-                      <p>3</p>
+                      <button onClick={onSend}>Send</button>
                     </div>
                   </div>
                 </div>
