@@ -11,7 +11,6 @@ const endpoints = {
 const headers = {
   "content-type": "application/json",
   "credaccess-secret-key": '04202d1c89149110aa62e5e326a9761a',
-  // "credaccess-secret-key": process.env.REACT_APP_SECRET_KEY,
 };
 
 export let userphoneno = "";

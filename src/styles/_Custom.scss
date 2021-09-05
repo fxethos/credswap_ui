@@ -1,32 +1,95 @@
-$blue:    #565859 !default;
-
+$blue: #565859 !default;
 
 $theme-colors: (
-  "primary": #1A1D1F,
-  "secondary":black, 
+  "primary": #1a1d1f,
+  "secondary": black,
   "body-bg": blue,
 );
 
-
-
-
-
 // $body: yellow;
 // $bs-body-bg: blue !important;
-.btn{
+.btn {
   padding: 0.1rem 0.75rem !important;
-  color:#776C34 !important;
-  border-radius:10px !important;
+  color: #776c34 !important;
+  border-radius: 10px !important;
 }
 
 // .btn-primary {
 //   color: #776C34 !important;
 // }
 
-
-body{
-  background-color:black !important;
+body {
+  background-color: black !important;
 }
 
+h3,
+h5 {
+  color: white;
+}
+
+input[type="text"],
+input[type="number"],
+select.form-control {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #e5ad2e;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 0;
+  font-size: 14px;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select.form-control:focus {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid white;
+}
+
+button {
+  margin: 10px;
+}
+.custom-btn {
+  // width: 130px;
+  height: 30px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  // font-family: "Lato", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.4);
+  text-decoration: none;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 1),
+    0px 1px 3px rgba(0, 0, 0, 0.3);
+  outline: none;
+  border: 1px solid #b97228;
+  line-height: 10px;
+  border-radius: 10px;
+}
+.custom-btn:active {
+  -webkit-transform: translateY(2px);
+  transform: translateY(2px);
+}
+
+/* rad_button */
+/* 3 */
+.rad_button {
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#b97228),
+    to(#e5ad2e)
+  );
+}
 
 @import "~bootstrap/scss/bootstrap";

@@ -36,15 +36,13 @@ function CreditCardVerify(props) {
                     <img src={logo} className="logo_img" alt="logo" />
                   </div>
                   <div className="col-lg-12 mt-5">
-                    <h4>enter your phone number</h4>
-                    <h6>
-                      helps automatically pull details of your credit card from
-                      the credit bureau
-                    </h6>
+                    <h4>Enter your phone number</h4>
+                    <h6>Helps to signup/login</h6>
 
                     <div className="mt-5">
                       <h3 className="card_number">
                         <input
+                          style={{ fontSize: "22px" }}
                           type="text"
                           name="phone"
                           value={phone}
@@ -55,8 +53,8 @@ function CreditCardVerify(props) {
                     </div>
                   </div>
 
-                  <div className="col-lg-12 mt-5">
-                    <div className="form-check">
+                  <div className="col-lg-12 mt-5 d-flex">
+                    <div className="form-check ">
                       <input
                         className="form-check-input"
                         type="checkbox"
@@ -66,19 +64,20 @@ function CreditCardVerify(props) {
                       />
                     </div>
                     <label className="form-check-label" for="defaultCheck2">
-                      upon agreeing, we will check with RBI approved credit
+                      Click to Agree
+                      {/* upon agreeing, we will check with RBI approved credit
                       bureaus if your credit score meets our criteria for making
                       payments on CRED. don't worry, this won't impact your
-                      current credit score.
-                    </label>{" "}
+                      current credit score. */}
+                    </label>
                   </div>
                   <div className="col-lg-12 mt-5">
                     <button
                       onClick={onSubmit}
                       type="button"
-                      className="btn btn-primary"
+                      className="custom-btn rad_button"
                     >
-                      Agree & Continue{" "}
+                      Continue
                     </button>
                   </div>
                 </div>

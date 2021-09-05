@@ -6,11 +6,11 @@ import WalletClient from "../../Helpers/WalletHelper";
 import ClientProfile from "../ClientProfile/ClientProfile";
 import ConvertForm from "../../components/ConvertForm/ConvertForm";
 import Balances from "../../components/Balances/Balances";
+import ExchangeForm from "../../components/ExchangeForm/ExchangeForm";
 
 function ClientDashboard(props) {
-
   const storedUser = localStorage.getItem("user");
-  const [user, setUser] = useState(storedUser ? JSON.parse(storedUser) : {})
+  const [user, setUser] = useState(storedUser ? JSON.parse(storedUser) : {});
   const [credBalance, setCredBalance] = useState(0);
   const [cretBalance, setCretBalance] = useState(0);
   const [wallet, setWallet] = useState("");
@@ -20,45 +20,46 @@ function ClientDashboard(props) {
       updateUser();
     }
     setCredBalance(user.coins);
-    updateBalance();
-    console.log("Wallet connected", WalletClient.walletConnected);
-    if(WalletClient.walletConnected === true) {
-      WalletClient.getPublicKey().then(pubKey => {
-        if(pubKey) {
+    
+    WalletClient.connect().then(res => {
+      console.log("Wallet connected", WalletClient.walletConnected, res);
+      updateBalance();
+    })
+    if (window.solana?.isConnected) {
+      WalletClient.getPublicKey().then((pubKey) => {
+        if (pubKey) {
           setWallet(pubKey.toBase58());
         }
       });
-      WalletClient.subscribe(updateBalance).then(res => {
+      WalletClient.subscribe(updateBalance).then((res) => {
         console.log("Subscription done!", res);
       });
     }
-  }, [user, WalletClient.walletConnected]);
+  }, [user, window.solana?.isConnected]);
 
   const updateBalance = () => {
-    WalletClient.getBalance().then(balance => {
-      setCretBalance(balance.value.amount);
-    }).catch(err => {
-      console.log(err);
-    });
-  }
+    WalletClient.getBalance()
+      .then((balance) => {
+        setCretBalance(balance.value.amount);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const updateUser = () => {
-    getUser().then(user => {
+    getUser().then((user) => {
       setUser(user);
       localStorage.setItem("user", JSON.stringify(user));
     });
-  }
+  };
 
   const handleConvertRequest = (coins) => {
-    spend(coins).then(data => {
+    spend(coins).then((data) => {
       console.log("Burn response:", data);
       updateUser();
     });
-  }
-
-  const onSend = () => {
-    WalletClient.send(100, 0);
-  }
+  };
 
   return (
     <div>
@@ -110,16 +111,19 @@ function ClientDashboard(props) {
                     </div>
                     <div id="covert" className="container1 tab-pane fade">
                       <br />
-                      <h3>Convert</h3>
+                      <h4>Convert</h4>
                       <p>your CRED reward points into CRET tokens</p>
                       <p>Your wallet address: {wallet}</p>
                       <ConvertForm onConvertRequest={handleConvertRequest} />
-                      <Balances credBalance={credBalance} cretBalance={cretBalance} />
+                      <Balances
+                        credBalance={credBalance}
+                        cretBalance={cretBalance}
+                      />
                     </div>
                     <div id="exchange" className="container1 tab-pane fade">
                       <br />
-                      <h3>Exchange</h3>
-                      <button onClick={onSend}>Send</button>
+                      <h4>Exchange</h4>
+                      <ExchangeForm />
                     </div>
                   </div>
                 </div>

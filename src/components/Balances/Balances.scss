@@ -1,29 +1,31 @@
 .balances-container {
-    display: flex;
-    margin: 1.5rem 0 0;
-    padding: 1rem;
-    flex-direction: column;
-    align-items: center;
-    border: 1px solid #353535;
+  display: flex;
+  margin: 1.5rem 0 0;
+  padding: 1rem;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #353535;
+  box-shadow: inset 0px 1px 0px #e0d1d14d, 0px 1px 3px #e0d1d14d;
 }
 
 .balances-wrapper {
-    display: flex;
-    margin: 1rem 0;
-    width: 100%;
-    justify-content: space-around;
+  display: flex;
+  margin: 1rem 0;
+  width: 100%;
+  justify-content: space-around;
 }
 
 .balance-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .balance-header {
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }
 
 .balance {
-    font-size: 2.5rem;
+  font-size: 2.5rem;
+  color: #e5ad2e;
 }
